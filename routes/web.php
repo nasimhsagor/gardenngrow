@@ -41,7 +41,7 @@ Route::prefix('cart')->name('cart.')->group(function () {
 });
 
 // Checkout
-Route::prefix('checkout')->name('checkout.')->middleware(['auth', 'checkout.guard'])->group(function () {
+Route::prefix('checkout')->name('checkout.')->middleware(['auth', 'verified', 'checkout.guard'])->group(function () {
     Route::get('/', [CheckoutController::class, 'index'])->name('index');
     Route::post('/', [CheckoutController::class, 'store'])->name('store');
 });
@@ -81,7 +81,7 @@ Route::get('/privacy', [PageController::class, 'privacy'])->name('page.privacy')
 Route::get('/return-policy', [PageController::class, 'returnPolicy'])->name('page.return-policy');
 
 // Customer Dashboard
-Route::prefix('account')->name('customer.')->middleware('auth')->group(function () {
+Route::prefix('account')->name('customer.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [CustomerController::class, 'dashboard'])->name('dashboard');
     Route::get('/orders', [CustomerController::class, 'orders'])->name('orders');
     Route::get('/orders/{orderNumber}', [CustomerController::class, 'orderShow'])->name('order.show');

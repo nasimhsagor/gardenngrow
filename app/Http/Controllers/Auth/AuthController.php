@@ -8,6 +8,7 @@ use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\Contracts\CartRepositoryInterface;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
@@ -71,11 +72,12 @@ class AuthController extends Controller
             'locale' => app()->getLocale(),
         ]);
 
+        event(new Registered($user));
         event(new UserRegistered($user));
 
         Auth::login($user);
 
-        return redirect()->route('customer.dashboard');
+        return redirect()->route('verification.notice');
     }
 
     public function logout(Request $request): RedirectResponse
