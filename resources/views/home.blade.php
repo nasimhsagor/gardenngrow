@@ -1,0 +1,201 @@
+@extends('layouts.app')
+
+@section('title', 'GardenNGrow - Online Nursery Bangladesh')
+@section('meta_description', 'Buy plants online in Bangladesh. Indoor plants, outdoor plants, pots, seeds, fertilizers delivered to your door.')
+
+@section('content')
+
+<!-- Hero Slider -->
+<section class="relative overflow-hidden bg-[#2D6A4F]" x-data="{ current: 0, slides: {{ $banners->count() ?: 1 }} }" x-init="setInterval(() => current = (current + 1) % slides, 5000)">
+    @forelse($banners as $index => $banner)
+    <div x-show="current === {{ $index }}" class="relative min-h-[500px] md:min-h-[600px] flex items-center" style="background-image: url('{{ Storage::url($banner->image) }}'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative max-w-7xl mx-auto px-4 text-white">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" style="font-family: 'Playfair Display', serif">
+                {{ $banner->translate()?->title ?? 'Welcome to GardenNGrow' }}
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-200">{{ $banner->translate()?->subtitle ?? 'Your Online Plant Paradise in Bangladesh' }}</p>
+            <a href="{{ $banner->link ?? route('shop.index') }}"
+                class="inline-block bg-[#52B788] text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-[#2D6A4F] transition-all duration-300">
+                {{ $banner->translate()?->button_text ?? __('Shop Now') }}
+            </a>
+        </div>
+    </div>
+    @empty
+    <div class="min-h-[500px] flex items-center justify-center bg-gradient-to-br from-[#2D6A4F] to-[#52B788]">
+        <div class="text-center text-white max-w-2xl px-4">
+            <h1 class="text-5xl font-bold mb-4" style="font-family: 'Playfair Display', serif">🌱 GardenNGrow</h1>
+            <p class="text-xl mb-8">Bangladesh's Premier Online Plant Store</p>
+            <a href="{{ route('shop.index') }}" class="inline-block bg-white text-[#2D6A4F] px-8 py-3 rounded-full text-lg font-semibold hover:bg-[#95D5B2] transition-all duration-300">
+                {{ __('Explore Plants') }}
+            </a>
+        </div>
+    </div>
+    @endforelse
+
+    <!-- Slider dots -->
+    @if($banners->count() > 1)
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        @foreach($banners as $index => $banner)
+        <button @click="current = {{ $index }}" class="w-2 h-2 rounded-full transition" :class="current === {{ $index }} ? 'bg-white' : 'bg-white/50'"></button>
+        @endforeach
+    </div>
+    @endif
+</section>
+
+<!-- Features Strip -->
+<section class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
+        <div class="flex items-center justify-center gap-2 text-gray-600"><span class="text-2xl">🚚</span><span>Free Delivery above ৳1500</span></div>
+        <div class="flex items-center justify-center gap-2 text-gray-600"><span class="text-2xl">🌿</span><span>100% Healthy Plants</span></div>
+        <div class="flex items-center justify-center gap-2 text-gray-600"><span class="text-2xl">🔄</span><span>Easy Returns</span></div>
+        <div class="flex items-center justify-center gap-2 text-gray-600"><span class="text-2xl">💬</span><span>24/7 Plant Care Support</span></div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="py-16 max-w-7xl mx-auto px-4">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-gray-800">{{ __('Browse Categories') }}</h2>
+        <p class="text-gray-500 mt-2">{{ __('Find exactly what you need') }}</p>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+        @foreach($categories as $category)
+        <a href="{{ route('shop.index', ['category' => $category->slug]) }}"
+            class="bg-white rounded-2xl p-4 text-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+            @if($category->image)
+                <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" class="w-16 h-16 object-cover rounded-xl mx-auto mb-3">
+            @else
+                <div class="w-16 h-16 bg-[#F8FAF5] rounded-xl mx-auto mb-3 flex items-center justify-center text-3xl">
+                    {{ $category->icon ?? '🌿' }}
+                </div>
+            @endif
+            <span class="text-sm font-medium text-gray-700 group-hover:text-[#2D6A4F] transition">{{ $category->name }}</span>
+            @if(isset($category->products_count))
+                <span class="block text-xs text-gray-400">{{ $category->products_count }} {{ __('items') }}</span>
+            @endif
+        </a>
+        @endforeach
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="bg-[#F8FAF5] py-16">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-10">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800">{{ __('Featured Plants') }}</h2>
+                <p class="text-gray-500 mt-1">{{ __('Handpicked favorites for your home') }}</p>
+            </div>
+            <a href="{{ route('shop.index') }}" class="text-[#2D6A4F] font-medium hover:text-[#52B788] transition">{{ __('View All') }} →</a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+            @foreach($featured as $product)
+                <x-product-card :product="$product" />
+            @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- New Arrivals -->
+<section class="py-16 max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between mb-10">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800">{{ __('New Arrivals') }}</h2>
+            <p class="text-gray-500 mt-1">{{ __('Just arrived this season') }}</p>
+        </div>
+        <a href="{{ route('shop.index') }}" class="text-[#2D6A4F] font-medium hover:text-[#52B788] transition">{{ __('View All') }} →</a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+        @foreach($newArrivals as $product)
+            <x-product-card :product="$product" />
+        @endforeach
+    </div>
+</section>
+
+<!-- Customer Reviews -->
+@if($reviews->isNotEmpty())
+<section class="bg-[#2D6A4F] py-16 text-white">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold">{{ __('What Our Customers Say') }}</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach($reviews as $review)
+            <div class="bg-white/10 backdrop-blur rounded-2xl p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-[#52B788] rounded-full flex items-center justify-center font-bold text-white">
+                        {{ strtoupper(substr($review->user->name, 0, 1)) }}
+                    </div>
+                    <div>
+                        <div class="font-semibold">{{ $review->user->name }}</div>
+                        <div class="text-xs text-[#95D5B2]">{{ $review->product?->name }}</div>
+                    </div>
+                </div>
+                <div class="flex gap-1 mb-3">
+                    @for($i = 1; $i <= 5; $i++)
+                    <svg class="w-4 h-4 {{ $i <= $review->rating ? 'text-yellow-400' : 'text-white/30' }}" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                    @endfor
+                </div>
+                <p class="text-sm text-gray-100 leading-relaxed">{{ $review->comment }}</p>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+<!-- Latest Blog Posts -->
+@if($blogs->isNotEmpty())
+<section class="py-16 max-w-7xl mx-auto px-4">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-bold text-gray-800">{{ __('Plant Care Tips') }}</h2>
+        <p class="text-gray-500 mt-2">{{ __('Learn to grow & nurture your plants') }}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        @foreach($blogs as $blog)
+        <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group">
+            @if($blog->featured_image)
+            <img src="{{ Storage::url($blog->featured_image) }}" alt="{{ $blog->title }}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+            @else
+            <div class="w-full h-48 bg-gradient-to-br from-[#95D5B2] to-[#52B788] flex items-center justify-center text-5xl">🌿</div>
+            @endif
+            <div class="p-5">
+                <span class="text-xs text-[#52B788] font-medium">{{ $blog->category?->name }}</span>
+                <h3 class="font-bold text-gray-800 mt-1 group-hover:text-[#2D6A4F] transition">{{ $blog->title }}</h3>
+                <p class="text-gray-500 text-sm mt-2 line-clamp-2">{{ $blog->excerpt }}</p>
+                <a href="{{ route('blog.show', $blog->slug) }}" class="inline-block mt-4 text-[#2D6A4F] text-sm font-medium hover:text-[#52B788] transition">
+                    {{ __('Read More') }} →
+                </a>
+            </div>
+        </article>
+        @endforeach
+    </div>
+</section>
+@endif
+
+<!-- Newsletter CTA -->
+<section class="bg-gradient-to-r from-[#2D6A4F] to-[#52B788] py-16 text-white text-center" x-data="{ email: '', msg: '' }">
+    <div class="max-w-xl mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-3">{{ __('Get Plant Care Tips in Your Inbox') }}</h2>
+        <p class="text-[#95D5B2] mb-6">{{ __('Subscribe for exclusive offers and gardening advice') }}</p>
+        <div class="flex gap-2 max-w-md mx-auto">
+            <input x-model="email" type="email" placeholder="{{ __('Enter your email') }}"
+                class="flex-1 rounded-l-lg px-4 py-3 text-gray-800 outline-none">
+            <button @click="
+                fetch('/newsletter/subscribe', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                    body: JSON.stringify({email})
+                }).then(r => r.json()).then(d => { msg = d.message; email = ''; });
+            " class="bg-[#8B6914] text-white px-6 py-3 rounded-r-lg font-semibold hover:bg-[#95D5B2] hover:text-[#2D6A4F] transition">
+                {{ __('Subscribe') }}
+            </button>
+        </div>
+        <p x-show="msg" x-text="msg" class="mt-3 text-[#95D5B2] text-sm"></p>
+    </div>
+</section>
+
+@endsection
