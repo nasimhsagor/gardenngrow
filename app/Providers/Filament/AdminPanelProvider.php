@@ -16,9 +16,11 @@ use App\Filament\Widgets\LatestOrdersTable;
 use App\Filament\Widgets\LowStockAlert;
 use App\Filament\Widgets\RevenueChart;
 use App\Filament\Widgets\StatsOverview;
+use App\Http\Middleware\SetLocale;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Navigation\NavigationGroup;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -37,19 +39,29 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id("admin")
+            ->path("admin")
             ->login()
-            ->colors(['primary' => Color::hex('#2D6A4F')])
-            ->brandName('GardenNGrow Admin')
-            ->authGuard('admin')
+            ->colors(["primary" => Color::hex("#2D6A4F")])
+            ->brandName("GardenNGrow Admin")
+            ->authGuard("admin")
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label("English")
+                    ->icon("heroicon-o-language")
+                    ->url("/language/en"),
+                MenuItem::make()
+                    ->label("বাংলা")
+                    ->icon("heroicon-o-language")
+                    ->url("/language/bn"),
+            ])
             ->navigationGroups([
-                NavigationGroup::make('Catalog'),
-                NavigationGroup::make('Orders'),
-                NavigationGroup::make('Marketing'),
-                NavigationGroup::make('Content'),
-                NavigationGroup::make('Users'),
-                NavigationGroup::make('Settings'),
+                NavigationGroup::make("Catalog"),
+                NavigationGroup::make("Orders"),
+                NavigationGroup::make("Marketing"),
+                NavigationGroup::make("Content"),
+                NavigationGroup::make("Users"),
+                NavigationGroup::make("Settings"),
             ])
             ->resources([
                 ProductResource::class,
@@ -61,9 +73,7 @@ class AdminPanelProvider extends PanelProvider
                 BlogResource::class,
                 BannerResource::class,
             ])
-            ->pages([
-                \App\Filament\Pages\Settings::class,
-            ])
+            ->pages([\App\Filament\Pages\Settings::class])
             ->widgets([
                 StatsOverview::class,
                 RevenueChart::class,
@@ -74,6 +84,7 @@ class AdminPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
+                SetLocale::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
@@ -81,8 +92,6 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->authMiddleware([
-                Authenticate::class,
-            ]);
+            ->authMiddleware([Authenticate::class]);
     }
 }

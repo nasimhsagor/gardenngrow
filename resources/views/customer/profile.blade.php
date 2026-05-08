@@ -20,16 +20,31 @@
             @csrf
             @method('PUT')
 
-            <div class="flex items-center gap-5 mb-4">
-                <div class="w-20 h-20 rounded-full overflow-hidden bg-primary-100 flex items-center justify-center">
-                    @if($user->avatar)
-                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
-                    @else
-                    <span class="text-primary-600 text-2xl font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
-                    @endif
+            <div x-data="{ photoName: null, photoPreview: null }" class="flex items-center gap-5 mb-4">
+                <div class="w-20 h-20 rounded-full overflow-hidden bg-primary-100 flex items-center justify-center relative">
+                    <!-- Current Profile Photo -->
+                    <div x-show="!photoPreview" class="w-full h-full">
+                        @if($user->avatar)
+                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                        @else
+                        <span class="w-full h-full flex items-center justify-center text-primary-600 text-2xl font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                        @endif
+                    </div>
+                    <!-- New Profile Photo Preview -->
+                    <div x-show="photoPreview" style="display: none;" class="w-full h-full">
+                        <span class="block w-full h-full bg-cover bg-no-repeat bg-center"
+                              x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+                        </span>
+                    </div>
                 </div>
                 <div>
-                    <input type="file" name="avatar" id="avatar" accept="image/*" class="hidden">
+                    <input type="file" name="avatar" id="avatar" accept="image/*" class="hidden"
+                           @change="
+                               const reader = new FileReader();
+                               reader.onload = (e) => { photoPreview = e.target.result; };
+                               reader.readAsDataURL($refs.photo.files[0]);
+                               photoName = $refs.photo.files[0].name;
+                           " x-ref="photo">
                     <label for="avatar" class="cursor-pointer text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition">
                         {{ __('general.change_photo') }}
                     </label>

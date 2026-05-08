@@ -85,6 +85,23 @@ class ProductSeeder extends Seeder
                 'difficulty' => DifficultyLevel::cases()[array_rand(DifficultyLevel::cases())],
             ]);
 
+            // Assign images
+            $imagePath = 'products/money_plant.png'; // Default generic fallback
+            if ($plant['en'] === 'Money Plant' || $plant['en'] === 'Pothos') {
+                $imagePath = 'products/money_plant.png';
+            } elseif ($plant['en'] === 'Tulsi (Holy Basil)') {
+                $imagePath = 'products/tulsi_plant.png';
+            } elseif ($plant['en'] === 'Mango Sapling' || $plant['en'] === 'Lemon Tree' || str_contains($plant['en'], 'Sapling') || str_contains($plant['en'], 'Tree')) {
+                $imagePath = 'products/mango_sapling.png';
+            }
+
+            $product->images()->create([
+                'path' => $imagePath,
+                'alt_text' => $plant['en'],
+                'is_primary' => true,
+                'sort_order' => 1,
+            ]);
+
             $product->translations()->createMany([
                 [
                     'locale' => 'en',

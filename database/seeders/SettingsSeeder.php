@@ -16,7 +16,7 @@ class SettingsSeeder extends Seeder
             // General
             ['group' => 'general', 'key' => 'site_name', 'value' => 'GardenNGrow', 'type' => SettingType::Text],
             ['group' => 'general', 'key' => 'site_tagline', 'value' => 'Your Online Plant Paradise', 'type' => SettingType::Text],
-            ['group' => 'general', 'key' => 'site_logo', 'value' => null, 'type' => SettingType::Image],
+            ['group' => 'general', 'key' => 'site_logo', 'value' => 'settings/garden_grow_logo.png', 'type' => SettingType::Image],
             ['group' => 'general', 'key' => 'site_favicon', 'value' => null, 'type' => SettingType::Image],
             ['group' => 'general', 'key' => 'free_shipping_threshold', 'value' => '1500', 'type' => SettingType::Number],
             // Contact

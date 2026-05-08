@@ -39,14 +39,21 @@ class BannerSeeder extends Seeder
             ],
         ];
 
-        foreach ($banners as $data) {
+        foreach ($banners as $index => $data) {
+            $imagePath = 'banners/placeholder.jpg';
+            if ($index === 0) {
+                $imagePath = 'banners/banner_indoor_plants.png';
+            } elseif ($index === 1) {
+                $imagePath = 'banners/banner_outdoor_garden.png';
+            }
+
             $banner = Banner::firstOrCreate([
                 'type' => $data['type'],
                 'sort_order' => $data['sort_order'],
             ], [
                 'link' => $data['link'],
                 'is_active' => $data['is_active'],
-                'image' => 'banners/placeholder.jpg',
+                'image' => $imagePath,
             ]);
             $banner->setTranslation('en', $data['en']);
             $banner->setTranslation('bn', $data['bn']);
