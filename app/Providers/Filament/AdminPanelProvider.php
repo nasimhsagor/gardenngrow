@@ -12,6 +12,8 @@ use App\Filament\Resources\CustomerResource;
 use App\Filament\Resources\OrderResource;
 use App\Filament\Resources\ProductResource;
 use App\Filament\Resources\ReviewResource;
+use App\Filament\Pages\Dashboard;
+use App\Filament\Widgets\AdminWelcome;
 use App\Filament\Widgets\LatestOrdersTable;
 use App\Filament\Widgets\LowStockAlert;
 use App\Filament\Widgets\RevenueChart;
@@ -73,8 +75,9 @@ class AdminPanelProvider extends PanelProvider
                 BlogResource::class,
                 BannerResource::class,
             ])
-            ->pages([\App\Filament\Pages\Settings::class])
+            ->pages([Dashboard::class, \App\Filament\Pages\Settings::class])
             ->widgets([
+                AdminWelcome::class,
                 StatsOverview::class,
                 RevenueChart::class,
                 LatestOrdersTable::class,
