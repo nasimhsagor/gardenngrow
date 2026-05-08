@@ -32,7 +32,7 @@
     <div class="flex items-center justify-between mb-8">
         <h1 class="text-2xl font-bold text-gray-900">{{ __('general.addresses') }}</h1>
         <button @click="openAdd()" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition">
-            + Add New Address
+            {{ __('general.add_new_address') }}
         </button>
     </div>
 
@@ -60,7 +60,7 @@
                     {{ $address->label->label() ?? $address->label }}
                 </span>
                 @if($address->is_default)
-                <span class="text-xs text-green-600 font-medium">Default</span>
+                <span class="text-xs text-green-600 font-medium">{{ __('general.default') }}</span>
                 @endif
             </div>
             <p class="font-semibold text-gray-900">{{ $address->full_name }}</p>
@@ -72,11 +72,11 @@
             @endif
 
             <div class="mt-4 pt-4 border-t border-gray-50 flex gap-3 opacity-0 group-hover:opacity-100 transition">
-                <button @click="openEdit({{ Js::from($address) }})" class="text-sm text-primary-600 hover:text-primary-800 font-medium">Edit</button>
-                <form action="{{ route('customer.addresses.destroy', $address) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this address?');">
+                <button @click="openEdit({{ Js::from($address) }})" class="text-sm text-primary-600 hover:text-primary-800 font-medium">{{ __('general.edit') }}</button>
+                <form action="{{ route('customer.addresses.destroy', $address) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('general.delete_address_confirm') }}');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="text-sm text-red-600 hover:text-red-800 font-medium">Delete</button>
+                    <button type="submit" class="text-sm text-red-600 hover:text-red-800 font-medium">{{ __('general.delete') }}</button>
                 </form>
             </div>
         </div>
@@ -88,8 +88,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
-        <p class="font-medium">No saved addresses yet.</p>
-        <p class="text-sm mt-1">Add a new address to speed up checkout.</p>
+        <p class="font-medium">{{ __('general.no_addresses_yet') }}</p>
+        <p class="text-sm mt-1">{{ __('general.add_address_to_speed_up') }}</p>
     </div>
     @endif
 
@@ -105,15 +105,15 @@
                         <input type="hidden" name="_method" value="PUT">
                     </template>
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title" x-text="editMode ? 'Edit Address' : 'Add New Address'"></h3>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title" x-text="editMode ? '{{ __('general.edit') }}' : '{{ __('general.add_new_address') }}'"></h3>
                         
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <div class="col-span-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Label</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.label') }}</label>
                                 <select name="label" x-model="formData.label" class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500">
-                                    <option value="home">Home</option>
-                                    <option value="office">Office</option>
-                                    <option value="other">Other</option>
+                                    <option value="home">{{ __('general.home') }}</option>
+                                    <option value="office">{{ __('general.office') }}</option>
+                                    <option value="other">{{ __('general.other') }}</option>
                                 </select>
                             </div>
                             <div class="col-span-2 sm:col-span-1">
@@ -151,17 +151,17 @@
                             <div class="col-span-2 mt-2">
                                 <label class="flex items-center gap-2">
                                     <input type="checkbox" name="is_default" value="1" x-model="formData.is_default" class="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
-                                    <span class="text-sm text-gray-700">Set as default address</span>
+                                    <span class="text-sm text-gray-700">{{ __('general.set_as_default') }}</span>
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded-b-2xl">
                         <button type="submit" class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-4 py-2 bg-primary-600 text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:ml-3 sm:w-auto sm:text-sm">
-                            Save Address
+                            {{ __('general.save_address_btn') }}
                         </button>
                         <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                            Cancel
+                            {{ __('general.cancel') }}
                         </button>
                     </div>
                 </form>

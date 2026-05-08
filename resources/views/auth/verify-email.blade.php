@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Verify Email - ' . config('app.name'))
+@section('title', __('general.verify_email') . ' - ' . config('app.name'))
 
 @section('content')
 <div class="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
@@ -11,14 +11,14 @@
             </svg>
         </div>
 
-        <h1 class="text-2xl font-bold text-gray-900 mb-3">Check your email</h1>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">{{ __('general.check_your_email') }}</h1>
         <p class="text-gray-500 mb-6">
-            We've sent a verification link to your email address. Please click the link to verify your account.
+            {{ __('general.verify_email_sent_msg') }}
         </p>
 
         @if(session('status') === 'verification-link-sent')
         <div class="bg-green-50 border border-green-200 text-green-700 rounded-lg px-4 py-3 mb-5 text-sm">
-            A new verification link has been sent.
+            {{ __('general.verification_link_resent') }}
         </div>
         @endif
 
@@ -26,7 +26,7 @@
             @csrf
             <button type="submit"
                 class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-xl transition">
-                Resend Verification Email
+                {{ __('general.resend_verification_email') }}
             </button>
         </form>
 

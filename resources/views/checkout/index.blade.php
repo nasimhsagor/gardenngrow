@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Checkout') . ' | GardenNGrow')
+@section('title', __('general.checkout') . ' | GardenNGrow')
 
 @section('content')
 <div class="max-w-6xl mx-auto px-4 py-8" x-data="{
@@ -36,7 +36,7 @@
         }
     }
 }">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">{{ __('Checkout') }}</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">{{ __('general.checkout_title') }}</h1>
 
     <form method="POST" action="{{ route('checkout.store') }}" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         @csrf
@@ -44,11 +44,11 @@
         <!-- Shipping Info -->
         <div class="space-y-5">
             <div class="bg-white rounded-2xl p-6 shadow-sm">
-                <h2 class="font-bold text-gray-800 text-xl mb-5">{{ __('Shipping Information') }}</h2>
+                <h2 class="font-bold text-gray-800 text-xl mb-5">{{ __('general.shipping_information') }}</h2>
 
                 @if($addresses->isNotEmpty())
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Use Saved Address') }}</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('general.use_saved_address') }}</label>
                     @foreach($addresses as $address)
                     <label class="flex items-start gap-3 p-3 border rounded-lg mb-2 cursor-pointer hover:border-[#2D6A4F] transition has-[:checked]:border-[#2D6A4F] has-[:checked]:bg-green-50">
                         <input type="radio" name="saved_address" value="{{ $address->id }}" x-model="selectedAddressId" @change="selectAddress($el.value)" class="mt-1 text-[#2D6A4F]">
@@ -58,45 +58,45 @@
                         </div>
                     </label>
                     @endforeach
-                    <div class="text-sm text-[#2D6A4F] font-medium mt-2">{{ __('Or enter a new address below:') }}</div>
+                    <div class="text-sm text-[#2D6A4F] font-medium mt-2">{{ __('general.new_address_below') }}</div>
                 </div>
                 @endif
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Full Name') }} *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.full_name') }} *</label>
                         <input type="text" name="full_name" x-model="formData.full_name" required
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F] @error('full_name') border-red-400 @enderror">
                         @error('full_name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Phone') }} *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.phone') }} *</label>
                         <input type="text" name="phone" x-model="formData.phone" required
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F] @error('phone') border-red-400 @enderror">
                         @error('phone') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Address Line 1') }} *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.address_line_1') }} *</label>
                         <input type="text" name="address_line_1" x-model="formData.address_line_1" required
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F]">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Address Line 2') }}</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.address_line_2') }}</label>
                         <input type="text" name="address_line_2" x-model="formData.address_line_2"
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F]">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('City') }} *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.city') }} *</label>
                         <input type="text" name="city" x-model="formData.city" required
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F]">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('District') }} *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.district') }} *</label>
                         <input type="text" name="district" x-model="formData.district" required
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F]">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Division') }} *</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.division') }} *</label>
                         <select name="division" x-model="formData.division" required class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F]">
                             @foreach($divisions as $division)
                             <option value="{{ $division }}">{{ $division }}</option>
@@ -104,20 +104,20 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('Postal Code') }}</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.postal_code') }}</label>
                         <input type="text" name="postal_code" x-model="formData.postal_code"
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F]">
                     </div>
                 </div>
                 <label class="flex items-center gap-2 mt-4 text-sm text-gray-600 cursor-pointer">
                     <input type="checkbox" name="save_address" value="1" class="text-[#2D6A4F]">
-                    {{ __('Save this address for future orders') }}
+                    {{ __('general.save_address') }}
                 </label>
             </div>
 
             <!-- Payment Method -->
             <div class="bg-white rounded-2xl p-6 shadow-sm">
-                <h2 class="font-bold text-gray-800 text-xl mb-5">{{ __('Payment Method') }}</h2>
+                <h2 class="font-bold text-gray-800 text-xl mb-5">{{ __('general.payment_method') }}</h2>
                 <div class="space-y-3">
                     @foreach(\App\Enums\PaymentMethod::cases() as $method)
                     <label class="flex items-center gap-3 p-4 border rounded-xl cursor-pointer hover:border-[#2D6A4F] transition has-[:checked]:border-[#2D6A4F] has-[:checked]:bg-green-50">
@@ -125,7 +125,7 @@
                         <div>
                             <div class="font-semibold text-sm">{{ $method->label() }}</div>
                             @if($method->value === 'cod')
-                            <div class="text-xs text-gray-500">{{ __('Pay when you receive your order') }}</div>
+                            <div class="text-xs text-gray-500">{{ __('general.cod_description') }}</div>
                             @endif
                         </div>
                     </label>
@@ -135,8 +135,8 @@
 
             <!-- Notes -->
             <div class="bg-white rounded-2xl p-6 shadow-sm">
-                <h2 class="font-bold text-gray-800 text-xl mb-3">{{ __('Order Notes') }}</h2>
-                <textarea name="notes" rows="3" placeholder="{{ __('Special instructions for your order...') }}"
+                <h2 class="font-bold text-gray-800 text-xl mb-3">{{ __('general.order_notes') }}</h2>
+                <textarea name="notes" rows="3" placeholder="{{ __('general.special_instructions') }}"
                     class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F]"></textarea>
             </div>
         </div>
@@ -144,7 +144,7 @@
         <!-- Order Summary -->
         <div>
             <div class="bg-white rounded-2xl p-6 shadow-sm sticky top-24">
-                <h2 class="font-bold text-gray-800 text-xl mb-5">{{ __('Your Order') }}</h2>
+                <h2 class="font-bold text-gray-800 text-xl mb-5">{{ __('general.your_order') }}</h2>
                 <div class="space-y-3 mb-5">
                     @foreach($cart->items as $item)
                     <div class="flex items-center gap-3">
@@ -160,14 +160,14 @@
                 </div>
                 <hr class="mb-4">
                 <div class="space-y-2 text-sm">
-                    <div class="flex justify-between text-gray-600"><span>{{ __('Subtotal') }}</span><span>৳{{ number_format($cart->subtotal, 0) }}</span></div>
+                    <div class="flex justify-between text-gray-600"><span>{{ __('general.subtotal') }}</span><span>৳{{ number_format($cart->subtotal, 0) }}</span></div>
                     @if($cart->coupon)
-                    <div class="flex justify-between text-green-600"><span>{{ __('Coupon') }} ({{ $cart->coupon->code }})</span><span>-৳{{ number_format($cart->coupon->calculateDiscount($cart->subtotal), 0) }}</span></div>
+                    <div class="flex justify-between text-green-600"><span>{{ __('general.coupon') }} ({{ $cart->coupon->code }})</span><span>-৳{{ number_format($cart->coupon->calculateDiscount($cart->subtotal), 0) }}</span></div>
                     @endif
-                    <div class="flex justify-between text-gray-600"><span>{{ __('Shipping') }}</span><span>{{ __('Calculated after address') }}</span></div>
+                    <div class="flex justify-between text-gray-600"><span>{{ __('general.shipping') }}</span><span>{{ __('general.calculated_after_address') }}</span></div>
                     <hr>
                     <div class="flex justify-between font-bold text-gray-800 text-base">
-                        <span>{{ __('Total') }}</span>
+                        <span>{{ __('general.total') }}</span>
                         @php
                             $checkoutDiscount = $cart->coupon ? $cart->coupon->calculateDiscount($cart->subtotal) : 0;
                             $checkoutTotal = max(0, $cart->subtotal - $checkoutDiscount);
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 <button type="submit" class="w-full mt-6 bg-[#2D6A4F] text-white py-4 rounded-xl font-bold text-lg hover:bg-[#52B788] transition">
-                    🛒 {{ __('Place Order') }}
+                    🛒 {{ __('general.place_order') }}
                 </button>
             </div>
         </div>

@@ -8,11 +8,11 @@
 
     <title>@yield('title', 'GardenNGrow') | গার্ডেন এন গ্রো</title>
     <meta name="description"
-        content="@yield('meta_description', 'Bangladesh\'s best online plant store. Buy indoor plants, outdoor plants, pots, seeds and gardening accessories.')">
+        content="@yield('meta_description', __('general.meta_description_default'))">
 
     <!-- Open Graph -->
     <meta property="og:title" content="@yield('og_title', 'GardenNGrow')">
-    <meta property="og:description" content="@yield('og_description', 'Your one-stop online nursery in Bangladesh')">
+    <meta property="og:description" content="@yield('og_description', __('general.og_description_default'))">
     <meta property="og:image" content="@yield('og_image', asset('images/og-default.jpg'))">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
@@ -350,7 +350,7 @@
                                 method: 'POST',
                                 headers: {'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}'},
                                 body: JSON.stringify({email: email})
-                            }).then(r => r.json()).then(d => { msg = d.message; email = ''; }).catch(() => { msg = 'Something went wrong.'; });
+                            }).then(r => r.json()).then(d => { msg = d.message; email = ''; }).catch(() => { msg = '{{ __('general.something_went_wrong') }}'; });
                         " class="bg-primary-600 hover:bg-primary-500 text-white text-sm px-4 py-2 transition">
                             {{ __('general.subscribe') }}
                         </button>
@@ -361,12 +361,12 @@
         </div>
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
-            © {{ date('Y') }} GardenNGrow. All rights reserved. Made with 💚 in Bangladesh.
+            © {{ date('Y') }} GardenNGrow. {{ __('general.all_rights_reserved') }} {{ __('general.made_with_love') }}
         </div>
     </footer>
 
     <!-- WhatsApp float -->
-    <a href="https://wa.me/{{ config('gardenngrow.whatsapp_number', '8801700000000') }}?text=Hi%2C+I%27m+interested+in+your+plants!"
+    <a href="https://wa.me/{{ config('gardenngrow.whatsapp_number', '8801700000000') }}?text={{ urlencode(__('general.whatsapp_message')) }}"
         target="_blank" rel="noopener"
         class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-3.5 rounded-full shadow-lg hover:scale-110 transition z-50">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

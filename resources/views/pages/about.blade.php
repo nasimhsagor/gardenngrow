@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('general.about_us') . ' - ' . config('app.name'))
-@section('meta_description', 'Learn about GardenNGrow — Bangladesh\'s premier online plant nursery. Our story, mission, and the team behind your green paradise.')
+@section('meta_description', __('general.about_meta_description'))
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">
@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ __('general.about_us') }}</h1>
             <p class="text-primary-200 text-lg max-w-2xl mx-auto">
-                Bringing Bangladesh closer to nature — one plant at a time.
+                {{ __('general.about_subtitle') }}
             </p>
         </div>
     </div>

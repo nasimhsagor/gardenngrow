@@ -31,7 +31,7 @@
                     <span class="text-lg font-bold text-primary-700">৳{{ number_format($order->total, 2) }}</span>
                     <a href="{{ route('customer.order.show', $order->order_number) }}"
                        class="text-sm bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition">
-                        View Details
+                        {{ __('general.view_details') }}
                     </a>
                 </div>
             </div>

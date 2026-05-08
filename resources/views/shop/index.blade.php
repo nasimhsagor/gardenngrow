@@ -30,7 +30,7 @@
         <a href="{{ route('shop.index', ['category' => $currentCategory->slug]) }}"
            class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium border transition
                   {{ !request('sub') ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-600 border-gray-200 hover:border-primary-400 hover:text-primary-600' }}">
-            All {{ $currentCategory->name }}
+            {{ __('general.all') }} {{ $currentCategory->name }}
         </a>
         @foreach($subcategories as $sub)
         <a href="{{ route('shop.index', ['category' => $sub->slug]) }}"
@@ -69,7 +69,7 @@
                             <a href="{{ route('shop.index') }}"
                                class="flex items-center px-3 py-2 rounded-lg text-sm transition
                                       {{ !$currentCategory ? 'bg-primary-600 text-white font-medium' : 'text-gray-600 hover:bg-gray-50 hover:text-primary-600' }}">
-                                All Products
+                                {{ __('general.all_products') }}
                             </a>
                         </li>
 
@@ -135,10 +135,10 @@
                             <h4 class="text-sm font-semibold text-gray-700 mb-2">{{ __('general.price_range') }}</h4>
                             <div class="flex gap-2">
                                 <input type="number" name="min_price" value="{{ $filters['min_price'] ?? '' }}"
-                                    placeholder="৳ Min"
+                                    placeholder="৳ {{ __('general.min') }}"
                                     class="w-full border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary-400">
                                 <input type="number" name="max_price" value="{{ $filters['max_price'] ?? '' }}"
-                                    placeholder="৳ Max"
+                                    placeholder="৳ {{ __('general.max') }}"
                                     class="w-full border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary-400">
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                                     <input type="radio" name="plant_type" value=""
                                         {{ empty($filters['plant_type']) ? 'checked' : '' }}
                                         class="text-primary-600 focus:ring-primary-500">
-                                    <span class="text-sm text-gray-400">Any type</span>
+                                    <span class="text-sm text-gray-400">{{ __('general.any_type') }}</span>
                                 </label>
                             </div>
                         </div>
@@ -221,7 +221,7 @@
                 <p class="text-sm">{{ __('general.try_adjusting_filters') }}</p>
                 <a href="{{ route('shop.index') }}"
                    class="mt-4 inline-block text-sm text-primary-600 hover:text-primary-700 font-medium">
-                    Clear all filters →
+                    {{ __('general.clear_all_filters') }} →
                 </a>
             </div>
             @else

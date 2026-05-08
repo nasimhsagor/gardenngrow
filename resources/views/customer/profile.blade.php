@@ -15,7 +15,7 @@
 
     <!-- Profile form -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-        <h2 class="font-semibold text-gray-800 mb-5">Personal Information</h2>
+        <h2 class="font-semibold text-gray-800 mb-5">{{ __('general.personal_info') }}</h2>
         <form method="POST" action="{{ route('customer.profile.update') }}" enctype="multipart/form-data" class="space-y-5">
             @csrf
             @method('PUT')
@@ -31,7 +31,7 @@
                 <div>
                     <input type="file" name="avatar" id="avatar" accept="image/*" class="hidden">
                     <label for="avatar" class="cursor-pointer text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition">
-                        Change Photo
+                        {{ __('general.change_photo') }}
                     </label>
                 </div>
             </div>
@@ -52,7 +52,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.email_label') }}</label>
                 <input type="email" value="{{ $user->email }}" disabled
                     class="w-full px-4 py-2.5 border border-gray-200 rounded-xl bg-gray-50 text-gray-400 cursor-not-allowed">
             </div>
@@ -60,7 +60,7 @@
             <div class="flex justify-end">
                 <button type="submit"
                     class="bg-primary-600 hover:bg-primary-700 text-white font-medium px-6 py-2.5 rounded-xl transition">
-                    Save Changes
+                    {{ __('general.save_changes') }}
                 </button>
             </div>
         </form>
@@ -68,26 +68,26 @@
 
     <!-- Change password -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <h2 class="font-semibold text-gray-800 mb-5">Change Password</h2>
+        <h2 class="font-semibold text-gray-800 mb-5">{{ __('general.change_password') }}</h2>
         <form method="POST" action="{{ route('customer.password.update') }}" class="space-y-5">
             @csrf
             @method('PUT')
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.current_password') }}</label>
                 <input type="password" name="current_password" required
                     class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 @error('current_password') border-red-400 @enderror">
                 @error('current_password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.new_password') }}</label>
                     <input type="password" name="password" required
                         class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 @error('password') border-red-400 @enderror">
                     @error('password') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.confirm_password') }}</label>
                     <input type="password" name="password_confirmation" required
                         class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500">
                 </div>
@@ -95,7 +95,7 @@
             <div class="flex justify-end">
                 <button type="submit"
                     class="bg-gray-800 hover:bg-gray-900 text-white font-medium px-6 py-2.5 rounded-xl transition">
-                    Update Password
+                    {{ __('general.update_password') }}
                 </button>
             </div>
         </form>

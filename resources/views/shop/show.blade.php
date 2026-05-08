@@ -6,7 +6,7 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
     <x-breadcrumb :items="[
-        ['name' => __('Shop'), 'url' => route('shop.index')],
+        ['name' => __('general.shop'), 'url' => route('shop.index')],
         ['name' => $product->category?->name, 'url' => route('shop.index', ['category' => $product->category?->slug])],
         ['name' => $product->name]
     ]" />
@@ -25,7 +25,7 @@
             }).then(r => r.json()).then(d => {
                 this.adding = false;
                 document.querySelectorAll('.cart-count').forEach(el => el.textContent = d.cart_count);
-                alert('Added to cart!');
+                alert('{{ __('general.added_to_cart') }}');
             });
         }
     }">
@@ -62,7 +62,7 @@
                     </svg>
                     @endfor
                 </div>
-                <span class="text-sm text-gray-500">({{ $product->reviews->where('is_approved', true)->count() }} reviews)</span>
+                <span class="text-sm text-gray-500">({{ $product->reviews->where('is_approved', true)->count() }} {{ __('general.reviews') }})</span>
             </div>
 
             <!-- Price -->
@@ -103,7 +103,7 @@
             <!-- Variants -->
             @if($product->variants->isNotEmpty())
             <div class="mt-5">
-                <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Select Variant') }}</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('general.select_variant') }}</label>
                 <div class="flex flex-wrap gap-2">
                     @foreach($product->variants->where('is_active', true) as $variant)
                     <button @click="selectedVariant = {{ $variant->id }}"
@@ -130,21 +130,21 @@
                 @if($product->isInStock())
                 <button @click="addToCart()" :disabled="adding"
                     class="flex-1 bg-[#2D6A4F] text-white py-3 rounded-xl font-semibold hover:bg-[#52B788] transition disabled:opacity-60">
-                    <span x-text="adding ? 'Adding...' : '{{ __('Add to Cart') }}'"></span>
+                    <span x-text="adding ? '{{ __('general.adding') }}' : '{{ __('general.add_to_cart') }}'"></span>
                 </button>
                 @else
-                <span class="flex-1 text-center bg-gray-100 text-gray-500 py-3 rounded-xl font-semibold">{{ __('Out of Stock') }}</span>
+                <span class="flex-1 text-center bg-gray-100 text-gray-500 py-3 rounded-xl font-semibold">{{ __('general.out_of_stock') }}</span>
                 @endif
             </div>
 
             <!-- Stock indicator -->
             <div class="mt-2 text-sm">
                 @if($product->stock_quantity <= 5 && $product->stock_quantity > 0)
-                <span class="text-orange-500">⚠️ Only {{ $product->stock_quantity }} left in stock!</span>
+                <span class="text-orange-500">⚠️ {{ __('general.only_left_in_stock', ['count' => $product->stock_quantity]) }}</span>
                 @elseif($product->isInStock())
-                <span class="text-green-600">✓ In Stock</span>
+                <span class="text-green-600">✓ {{ __('general.in_stock') }}</span>
                 @else
-                <span class="text-red-500">✗ Out of Stock</span>
+                <span class="text-red-500">✗ {{ __('general.out_of_stock') }}</span>
                 @endif
             </div>
 
@@ -152,7 +152,7 @@
             <a href="https://wa.me/8801700000000?text=Hi, I want to order: {{ urlencode($product->name) }}" target="_blank"
                 class="mt-4 flex items-center justify-center gap-2 border-2 border-green-500 text-green-600 py-3 rounded-xl font-medium hover:bg-green-50 transition">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                {{ __('Order via WhatsApp') }}
+                {{ __('general.order_via_whatsapp') }}
             </a>
         </div>
     </div>
@@ -160,7 +160,7 @@
     <!-- Tabs: Description / Care Tips / Reviews -->
     <div x-data="{ tab: 'description' }" class="mb-16">
         <div class="flex border-b mb-6">
-            @foreach(['description' => __('Description'), 'care' => __('Care Tips'), 'reviews' => __('Reviews')] as $key => $label)
+            @foreach(['description' => __('general.description'), 'care' => __('general.care_tips'), 'reviews' => __('general.reviews')] as $key => $label)
             <button @click="tab = '{{ $key }}'"
                 :class="tab === '{{ $key }}' ? 'border-b-2 border-[#2D6A4F] text-[#2D6A4F] font-semibold' : 'text-gray-500'"
                 class="px-6 py-3 text-sm transition">{{ $label }}</button>
@@ -174,11 +174,11 @@
         <div x-show="tab === 'care'">
             @if($product->getTranslation('care_instructions'))
             <div class="bg-green-50 border border-green-100 rounded-2xl p-6">
-                <h3 class="font-bold text-gray-800 mb-4">🌱 {{ __('Plant Care Instructions') }}</h3>
+                <h3 class="font-bold text-gray-800 mb-4">🌱 {{ __('general.plant_care_instructions') }}</h3>
                 <div class="text-gray-700 leading-relaxed whitespace-pre-line">{{ $product->getTranslation('care_instructions') }}</div>
             </div>
             @else
-            <p class="text-gray-500">{{ __('No care instructions available.') }}</p>
+            <p class="text-gray-500">{{ __('general.no_care_instructions') }}</p>
             @endif
         </div>
 
@@ -208,19 +208,19 @@
                     <p class="text-gray-600 text-sm mt-1">{{ $review->comment }}</p>
                 </div>
                 @empty
-                <p class="text-gray-500">{{ __('No reviews yet. Be the first to review!') }}</p>
+                <p class="text-gray-500">{{ __('general.no_reviews_yet') }}</p>
                 @endforelse
             </div>
 
             <!-- Submit Review Form -->
             @auth
             <div class="bg-[#F8FAF5] rounded-2xl p-6">
-                <h3 class="font-bold text-gray-800 mb-4">{{ __('Write a Review') }}</h3>
+                <h3 class="font-bold text-gray-800 mb-4">{{ __('general.write_a_review') }}</h3>
                 <form method="POST" action="{{ route('reviews.store') }}">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <div class="mb-4" x-data="{ rating: 0 }">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('Rating') }}</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">{{ __('general.rating') }}</label>
                         <div class="flex gap-1">
                             @for($i = 1; $i <= 5; $i++)
                             <button type="button" @click="rating = {{ $i }}" class="w-8 h-8 text-2xl">
@@ -231,16 +231,16 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <textarea name="comment" rows="3" placeholder="{{ __('Share your experience...') }}"
+                        <textarea name="comment" rows="3" placeholder="{{ __('general.share_your_experience') }}"
                             class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-[#2D6A4F]"></textarea>
                     </div>
                     <button type="submit" class="bg-[#2D6A4F] text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-[#52B788] transition">
-                        {{ __('Submit Review') }}
+                        {{ __('general.submit_review') }}
                     </button>
                 </form>
             </div>
             @else
-            <p class="text-gray-500 text-sm"><a href="{{ route('login') }}" class="text-[#2D6A4F]">{{ __('Login') }}</a> {{ __('to write a review.') }}</p>
+            <p class="text-gray-500 text-sm"><a href="{{ route('login') }}" class="text-[#2D6A4F]">{{ __('general.login') }}</a> {{ __('general.to_write_review_login_suffix') }}</p>
             @endauth
         </div>
     </div>
@@ -248,7 +248,7 @@
     <!-- Related Products -->
     @if($related->isNotEmpty())
     <div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ __('Related Products') }}</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ __('general.related_products') }}</h2>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-5">
             @foreach($related as $relatedProduct)
                 <x-product-card :product="$relatedProduct" />

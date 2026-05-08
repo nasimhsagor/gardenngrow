@@ -23,7 +23,7 @@
             @csrf
 
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.email') ?? 'Email' }}</label>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.email') }}</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent @error('email') border-red-400 @enderror">
                 @error('email')
@@ -33,10 +33,10 @@
 
             <div>
                 <div class="flex justify-between items-center mb-1">
-                    <label for="password" class="block text-sm font-medium text-gray-700">{{ __('general.password') ?? 'Password' }}</label>
+                    <label for="password" class="block text-sm font-medium text-gray-700">{{ __('general.password') }}</label>
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="text-sm text-primary-600 hover:text-primary-700">
-                            {{ __('general.forgot_password') ?? 'Forgot password?' }}
+                            {{ __('general.forgot_password') }}
                         </a>
                     @endif
                 </div>
@@ -49,7 +49,7 @@
 
             <div class="flex items-center">
                 <input id="remember" type="checkbox" name="remember" class="w-4 h-4 text-primary-600 border-gray-300 rounded">
-                <label for="remember" class="ml-2 text-sm text-gray-600">{{ __('general.remember_me') ?? 'Remember me' }}</label>
+                <label for="remember" class="ml-2 text-sm text-gray-600">{{ __('general.remember_me') }}</label>
             </div>
 
             <button type="submit"
@@ -59,7 +59,7 @@
         </form>
 
         <p class="text-center text-gray-500 mt-6 text-sm">
-            {{ __('general.no_account') ?? "Don't have an account?" }}
+            {{ __('general.no_account') }}
             <a href="{{ route('register') }}" class="text-primary-600 hover:text-primary-700 font-medium">
                 {{ __('general.register') }}
             </a>

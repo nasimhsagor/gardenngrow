@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $query ? "Search: {$query}" : __('general.search'))
+@section('title', $query ? __('general.search_results_for') . ": {$query}" : __('general.search'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -23,7 +23,7 @@
         @if($results instanceof \Illuminate\Pagination\LengthAwarePaginator)
             {{ $results->total() }} {{ __('general.products_found') }} "<span class="font-medium text-gray-700">{{ $query }}</span>"
         @else
-            No results for "<span class="font-medium text-gray-700">{{ $query }}</span>"
+            {{ __('general.no_results_for') }} "<span class="font-medium text-gray-700">{{ $query }}</span>"
         @endif
     </p>
 

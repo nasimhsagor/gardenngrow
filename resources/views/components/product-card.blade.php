@@ -14,7 +14,7 @@
         <!-- Badges -->
         <div class="absolute top-2 left-2 flex flex-col gap-1">
             @if($product->is_new_arrival)
-                <span class="bg-[#2D6A4F] text-white text-xs px-2 py-1 rounded-full">New</span>
+                <span class="bg-[#2D6A4F] text-white text-xs px-2 py-1 rounded-full">{{ __('general.new') }}</span>
             @endif
             @if($product->discount_percentage > 0)
                 <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">-{{ $product->discount_percentage }}%</span>
@@ -88,7 +88,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             </button>
             @else
-            <span class="text-xs text-red-500 font-medium">Out of Stock</span>
+            <span class="text-xs text-red-500 font-medium">{{ __('general.out_of_stock') }}</span>
             @endif
         </div>
     </div>

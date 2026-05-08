@@ -27,7 +27,7 @@
     <!-- Items -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
         <div class="px-5 py-4 border-b border-gray-100">
-            <h2 class="font-semibold text-gray-800">Items</h2>
+            <h2 class="font-semibold text-gray-800">{{ __('general.items_list') }}</h2>
         </div>
         @foreach($order->items as $item)
         <div class="px-5 py-4 flex items-center gap-4 border-b border-gray-50 last:border-0">
@@ -47,7 +47,7 @@
                 @if($item->variant)
                 <p class="text-sm text-gray-500">{{ $item->variant->name }}</p>
                 @endif
-                <p class="text-sm text-gray-400">Qty: {{ $item->quantity }}</p>
+                <p class="text-sm text-gray-400">{{ __('general.qty') }}: {{ $item->quantity }}</p>
             </div>
             <span class="font-semibold text-gray-900">৳{{ number_format($item->total_price, 2) }}</span>
         </div>
@@ -70,7 +70,7 @@
             @endif
             <div class="flex justify-between text-gray-600">
                 <span>{{ __('general.shipping') }}</span>
-                <span>{{ $order->shipping_amount > 0 ? '৳' . number_format($order->shipping_amount, 2) : 'Free' }}</span>
+                <span>{{ $order->shipping_amount > 0 ? '৳' . number_format($order->shipping_amount, 2) : __('general.free') }}</span>
             </div>
             <div class="flex justify-between font-bold text-gray-900 text-base pt-2 border-t border-gray-100">
                 <span>{{ __('general.total') }}</span>
@@ -86,7 +86,7 @@
         <p class="text-gray-500 text-sm mt-1">{{ $order->shipping_phone }}</p>
         <p class="text-gray-500 text-sm">{{ $order->shipping_full_address }}</p>
         @if($order->notes)
-        <p class="text-gray-400 text-sm mt-2 italic">Note: {{ $order->notes }}</p>
+        <p class="text-gray-400 text-sm mt-2 italic">{{ __('general.note') }}: {{ $order->notes }}</p>
         @endif
     </div>
 

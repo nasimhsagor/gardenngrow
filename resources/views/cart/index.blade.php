@@ -1,16 +1,16 @@
 @extends('layouts.app')
-@section('title', __('Your Cart') . ' | GardenNGrow')
+@section('title', __('general.cart') . ' | GardenNGrow')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8">{{ __('Shopping Cart') }}</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">{{ __('general.shopping_cart') }}</h1>
 
     @if($cart->items->isEmpty())
     <div class="text-center py-20">
         <div class="text-7xl mb-6">🛒</div>
-        <h2 class="text-2xl font-bold text-gray-700 mb-3">{{ __('Your cart is empty') }}</h2>
-        <p class="text-gray-500 mb-6">{{ __('Looks like you haven\'t added any plants yet!') }}</p>
-        <a href="{{ route('shop.index') }}" class="bg-[#2D6A4F] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#52B788] transition">{{ __('Start Shopping') }}</a>
+        <h2 class="text-2xl font-bold text-gray-700 mb-3">{{ __('general.your_cart_is_empty') }}</h2>
+        <p class="text-gray-500 mb-6">{{ __('general.no_plants_added') }}</p>
+        <a href="{{ route('shop.index') }}" class="bg-[#2D6A4F] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#52B788] transition">{{ __('general.start_shopping') }}</a>
     </div>
     @else
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" x-data="{
@@ -54,35 +54,35 @@
         <div class="space-y-4">
             <!-- Coupon -->
             <div class="bg-white rounded-2xl p-5 shadow-sm">
-                <h3 class="font-bold text-gray-800 mb-3">{{ __('Coupon Code') }}</h3>
+                <h3 class="font-bold text-gray-800 mb-3">{{ __('general.coupon_code') }}</h3>
                 <div class="flex gap-2">
-                    <input x-model="couponCode" type="text" placeholder="{{ __('Enter code') }}" class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#2D6A4F]">
-                    <button @click="applyCoupon()" class="bg-[#2D6A4F] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#52B788] transition">{{ __('Apply') }}</button>
+                    <input x-model="couponCode" type="text" placeholder="{{ __('general.enter_code') }}" class="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#2D6A4F]">
+                    <button @click="applyCoupon()" class="bg-[#2D6A4F] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#52B788] transition">{{ __('general.apply') }}</button>
                 </div>
                 <p x-show="couponMsg" x-text="couponMsg" class="text-sm mt-2 text-gray-600"></p>
             </div>
 
             <!-- Summary -->
             <div class="bg-white rounded-2xl p-5 shadow-sm">
-                <h3 class="font-bold text-gray-800 mb-4">{{ __('Order Summary') }}</h3>
+                <h3 class="font-bold text-gray-800 mb-4">{{ __('general.order_summary') }}</h3>
                 <div class="space-y-2 text-sm">
                     <div class="flex justify-between text-gray-600">
-                        <span>{{ __('Subtotal') }}</span>
+                        <span>{{ __('general.subtotal') }}</span>
                         <span>৳{{ number_format($cart->subtotal, 0) }}</span>
                     </div>
                     @if($cart->coupon)
                     <div class="flex justify-between text-green-600">
-                        <span>{{ __('Discount') }} ({{ $cart->coupon->code }})</span>
+                        <span>{{ __('general.discount') }} ({{ $cart->coupon->code }})</span>
                         <span>-৳{{ number_format($cart->coupon->calculateDiscount($cart->subtotal), 0) }}</span>
                     </div>
                     @endif
                     <div class="flex justify-between text-gray-600">
-                        <span>{{ __('Shipping') }}</span>
-                        <span class="text-[#2D6A4F]">{{ __('Calculated at checkout') }}</span>
+                        <span>{{ __('general.shipping') }}</span>
+                        <span class="text-[#2D6A4F]">{{ __('general.calculated_at_checkout') }}</span>
                     </div>
                     <hr>
                     <div class="flex justify-between font-bold text-gray-800 text-base">
-                        <span>{{ __('Total') }}</span>
+                        <span>{{ __('general.total') }}</span>
                         @php
                             $cartDiscount = $cart->coupon ? $cart->coupon->calculateDiscount($cart->subtotal) : 0;
                             $cartTotal = max(0, $cart->subtotal - $cartDiscount);
@@ -91,9 +91,9 @@
                     </div>
                 </div>
                 <a href="{{ route('checkout.index') }}" class="block text-center mt-5 bg-[#2D6A4F] text-white py-3 rounded-xl font-semibold hover:bg-[#52B788] transition">
-                    {{ __('Proceed to Checkout') }} →
+                    {{ __('general.proceed_to_checkout') }} →
                 </a>
-                <a href="{{ route('shop.index') }}" class="block text-center mt-3 text-sm text-gray-500 hover:text-[#2D6A4F] transition">← {{ __('Continue Shopping') }}</a>
+                <a href="{{ route('shop.index') }}" class="block text-center mt-3 text-sm text-gray-500 hover:text-[#2D6A4F] transition">← {{ __('general.continue_shopping') }}</a>
             </div>
         </div>
     </div>

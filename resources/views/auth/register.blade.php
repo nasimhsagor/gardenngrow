@@ -10,7 +10,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" class="h-12 mx-auto mb-4" onerror="this.style.display='none'">
             </a>
             <h1 class="text-2xl font-bold text-gray-900">{{ __('general.register') }}</h1>
-            <p class="text-gray-500 mt-1">Create your GardenNGrow account</p>
+            <p class="text-gray-500 mt-1">{{ __('general.create_account_subtitle') }}</p>
         </div>
 
         <form method="POST" action="{{ route('register') }}" class="space-y-5">
@@ -26,7 +26,7 @@
             </div>
 
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.email') }}</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 @error('email') border-red-400 @enderror">
                 @error('email')
@@ -44,7 +44,7 @@
             </div>
 
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.password') }}</label>
                 <input id="password" type="password" name="password" required
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 @error('password') border-red-400 @enderror">
                 @error('password')
@@ -53,7 +53,7 @@
             </div>
 
             <div>
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.confirm_password') }}</label>
                 <input id="password_confirmation" type="password" name="password_confirmation" required
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500">
             </div>
@@ -65,7 +65,7 @@
         </form>
 
         <p class="text-center text-gray-500 mt-6 text-sm">
-            Already have an account?
+            {{ __('general.already_have_account') }}
             <a href="{{ route('login') }}" class="text-primary-600 hover:text-primary-700 font-medium">
                 {{ __('general.login') }}
             </a>
