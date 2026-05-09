@@ -20,7 +20,13 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void {}
+    public function register(): void
+    {
+        // Override public path for cPanel shared hosting
+        $this->app->bind('path.public', function () {
+            return base_path('../public_html');
+        });
+    }
 
     public function boot(): void
     {

@@ -112,4 +112,10 @@ Route::get('/payment/stripe/cancel', [StripeController::class, 'cancel'])->name(
 Route::post('/payment/stripe/webhook', [StripeController::class, 'webhook'])->name('payment.stripe.webhook')
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
 
+// Temporary route to link storage via browser
+Route::get('/linkstorage', function () {
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    return 'Storage linked successfully!';
+});
+
 require __DIR__.'/auth.php';
