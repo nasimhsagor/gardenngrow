@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'GardenNGrow') | গার্ডেন এন গ্রো</title>
+     @php $favicon = \App\Models\Setting::get('site_favicon');     @endphp
+    <link rel="icon" href="{{ asset('storage/' . $favicon) }}">
     <meta name="description" content="@yield('meta_description', __('general.meta_description_default'))">
 
     <!-- Open Graph -->
