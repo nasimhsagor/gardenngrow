@@ -57,7 +57,8 @@
                 @php $logo = \App\Models\Setting::get('site_logo'); @endphp
                 @if($logo)
                     <img src="{{ asset('storage/' . $logo) }}" alt="{{ config('app.name') }}"
-                class="h-16 w-auto object-contain"> @else
+                        class="h-16 w-auto object-contain">
+                    @else
                         <span class="text-2xl font-bold text-primary-700" style="font-family:'Playfair Display',serif">
                             GardenNGrow
                         </span>
