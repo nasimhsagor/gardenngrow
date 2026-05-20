@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use App\Enums\PaymentMethod;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Rules\BangladeshiPhone;
 
 class CheckoutRequest extends FormRequest
 {
@@ -19,7 +20,7 @@ class CheckoutRequest extends FormRequest
     {
         return [
             'full_name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:20'],
+            'phone' => ['required', 'string', new BangladeshiPhone()],
             'address_line_1' => ['required', 'string', 'max:255'],
             'address_line_2' => ['nullable', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:100'],

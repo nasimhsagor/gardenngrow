@@ -80,7 +80,7 @@ class CustomerController extends Controller
         $validated = $request->validate([
             'label' => 'required|string',
             'full_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
+            'phone' => ['required', 'string', new \App\Rules\BangladeshiPhone()],
             'address_line_1' => 'required|string|max:255',
             'address_line_2' => 'nullable|string|max:255',
             'city' => 'required|string|max:100',
@@ -106,7 +106,7 @@ class CustomerController extends Controller
         $validated = $request->validate([
             'label' => 'required|string',
             'full_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
+            'phone' => ['required', 'string', new \App\Rules\BangladeshiPhone()],
             'address_line_1' => 'required|string|max:255',
             'address_line_2' => 'nullable|string|max:255',
             'city' => 'required|string|max:100',

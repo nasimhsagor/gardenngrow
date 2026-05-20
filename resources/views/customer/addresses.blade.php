@@ -121,8 +121,11 @@
                                 <input type="text" name="full_name" x-model="formData.full_name" required class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500">
                             </div>
                             <div class="col-span-2 sm:col-span-1">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                                <input type="text" name="phone" x-model="formData.phone" required class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.phone') }}</label>
+                                <input type="text" name="phone" x-model="formData.phone" required
+                                    pattern="(?:\+88|88)?01[3-9][0-9]{8}"
+                                    title="{{ __('general.phone_number_hint') }}"
+                                    class="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500">
                             </div>
                             <div class="col-span-2">
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Address Line 1</label>

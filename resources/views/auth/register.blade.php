@@ -36,7 +36,9 @@
 
             <div>
                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.phone') }}</label>
-                <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" placeholder="+880 1700-000000"
+                <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" placeholder="+88017XXXXXXXX"
+                    pattern="(?:\+88|88)?01[3-9][0-9]{8}"
+                    title="{{ __('general.phone_number_hint') }}"
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 @error('phone') border-red-400 @enderror">
                 @error('phone')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

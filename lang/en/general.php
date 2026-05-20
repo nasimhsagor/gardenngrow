@@ -114,6 +114,8 @@ return [
     'new_address_below' => 'Or enter a new address below:',
     'full_name' => 'Full Name',
     'phone' => 'Phone',
+    'phone_number_invalid' => 'The :attribute must be a valid Bangladeshi number (e.g. 017XXXXXXXX, +88017XXXXXXXX).',
+    'phone_number_hint' => 'Valid format: 017XXXXXXXX, +88017XXXXXXXX, or 88017XXXXXXXX',
     'address_line_1' => 'Address Line 1',
     'address_line_2' => 'Address Line 2',
     'city' => 'City',
