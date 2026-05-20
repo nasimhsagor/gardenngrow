@@ -13,7 +13,8 @@ class ProductRepository implements ProductRepositoryInterface
 {
     public function getActive(array $filters = [], int $perPage = 16): LengthAwarePaginator
     {
-        $query = Product::with(['translations', 'images', 'category'])
+        $query = Product::with(['translations', 'images', 'category.translations'])
+            ->withAvg(['reviews' => fn ($q) => $q->where('is_approved', true)], 'rating')
             ->active();
 
         $this->applyFilters($query, $filters);
@@ -23,7 +24,8 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getFeatured(int $limit = 8): Collection
     {
-        return Product::with(['translations', 'images'])
+        return Product::with(['translations', 'images', 'category.translations'])
+            ->withAvg(['reviews' => fn ($q) => $q->where('is_approved', true)], 'rating')
             ->active()
             ->featured()
             ->latest()
@@ -33,7 +35,8 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getNewArrivals(int $limit = 8): Collection
     {
-        return Product::with(['translations', 'images'])
+        return Product::with(['translations', 'images', 'category.translations'])
+            ->withAvg(['reviews' => fn ($q) => $q->where('is_approved', true)], 'rating')
             ->active()
             ->newArrivals()
             ->latest()
@@ -48,6 +51,7 @@ class ProductRepository implements ProductRepositoryInterface
         $categoryIds = $childIds->prepend($categoryId)->toArray();
 
         $query = Product::with(['translations', 'images', 'category.translations'])
+            ->withAvg(['reviews' => fn ($q) => $q->where('is_approved', true)], 'rating')
             ->active()
             ->whereIn('category_id', $categoryIds);
 
@@ -58,7 +62,8 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getRelated(Product $product, int $limit = 4): Collection
     {
-        return Product::with(['translations', 'images'])
+        return Product::with(['translations', 'images', 'category.translations'])
+            ->withAvg(['reviews' => fn ($q) => $q->where('is_approved', true)], 'rating')
             ->active()
             ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
