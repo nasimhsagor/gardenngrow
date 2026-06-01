@@ -72,6 +72,8 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">{{ __('general.phone') }} *</label>
                         <input type="text" name="phone" x-model="formData.phone" required
+                            pattern="(?:\+88|88)?01[3-9][0-9]{8}"
+                            title="{{ __('general.phone_number_hint') }}"
                             class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#2D6A4F] @error('phone') border-red-400 @enderror">
                         @error('phone') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>

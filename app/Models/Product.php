@@ -141,7 +141,13 @@ class Product extends Model
 
     public function getAverageRatingAttribute(): float
     {
-        return round($this->reviews()->where('is_approved', true)->avg('rating') ?? 0, 1);
+        // Use pre-loaded aggregate (from withAvg) to avoid N+1 queries on listing pages
+        if (array_key_exists('reviews_avg_rating', $this->attributes)) {
+            return round((float) ($this->attributes['reviews_avg_rating'] ?? 0), 1);
+        }
+
+        // Fallback for detail pages where withAvg is not used
+        return round((float) ($this->reviews()->where('is_approved', true)->avg('rating') ?? 0), 1);
     }
 
     public function isInStock(): bool

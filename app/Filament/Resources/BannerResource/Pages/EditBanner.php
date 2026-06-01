@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace App\Filament\Resources\BannerResource\Pages;
 
 use App\Filament\Resources\BannerResource;
+use App\Traits\FilamentTranslatablePage;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
 class EditBanner extends EditRecord
 {
+    use FilamentTranslatablePage;
+
     protected static string $resource = BannerResource::class;
 
     protected function getHeaderActions(): array

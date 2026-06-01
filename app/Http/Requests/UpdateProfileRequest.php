@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Rules\BangladeshiPhone;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -19,7 +20,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             // 'email' => ['required', 'email', Rule::unique('users', 'email')->ignore(auth()->id())],
-            'phone' => ['nullable', 'string', 'max:20', Rule::unique('users', 'phone')->ignore(auth()->id())],
+            'phone' => ['nullable', 'string', new BangladeshiPhone(), Rule::unique('users', 'phone')->ignore(auth()->id())],
             'avatar' => ['nullable', 'image', 'max:2048'],
             'locale' => ['nullable', 'string', Rule::in(['bn', 'en'])],
         ];

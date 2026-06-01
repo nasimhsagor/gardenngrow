@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
+use App\Http\Requests\ContactFormRequest;
+
 class PageController extends Controller
 {
     public function about(): View
@@ -30,14 +32,9 @@ class PageController extends Controller
         ]);
     }
 
-    public function contactSubmit(Request $request): RedirectResponse
+    public function contactSubmit(ContactFormRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'name'    => 'required|string|max:100',
-            'email'   => 'required|email|max:150',
-            'subject' => 'required|string|max:200',
-            'message' => 'required|string|max:2000',
-        ]);
+        $data = $request->validated();
 
         // Queue a simple notification email if mail is configured
         try {

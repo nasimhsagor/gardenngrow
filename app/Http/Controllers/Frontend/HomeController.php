@@ -22,12 +22,12 @@ class HomeController extends Controller
     public function index(): View
     {
         return view('home', [
-            'banners' => Banner::active()->where('type', 'hero_slider')->orderBy('sort_order')->get(),
-            'categories' => $this->categoryRepository->getWithProductCount(),
-            'featured' => $this->productRepository->getFeatured(8),
+            'banners'     => Banner::with('translations')->active()->where('type', 'hero_slider')->orderBy('sort_order')->get(),
+            'categories'  => $this->categoryRepository->getWithProductCount(),
+            'featured'    => $this->productRepository->getFeatured(8),
             'newArrivals' => $this->productRepository->getNewArrivals(8),
-            'reviews' => Review::with('user', 'product.translations')->approved()->latest()->limit(6)->get(),
-            'blogs' => Blog::with(['translations', 'category'])->published()->latest()->limit(3)->get(),
+            'reviews'     => Review::with(['user', 'product.translations'])->approved()->latest()->limit(6)->get(),
+            'blogs'       => Blog::with(['translations', 'category.translations'])->published()->latest()->limit(3)->get(),
         ]);
     }
 }

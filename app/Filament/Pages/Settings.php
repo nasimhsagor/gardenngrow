@@ -86,9 +86,9 @@ class Settings extends Page
                     ->columns(2),
                 Forms\Components\Section::make("Contact")
                     ->schema([
-                        Forms\Components\TextInput::make("phone")->label(
-                            "Phone",
-                        ),
+                        Forms\Components\TextInput::make("phone")
+                            ->label("Phone")
+                            ->rule(new \App\Rules\BangladeshiPhone()),
                         Forms\Components\TextInput::make("email")
                             ->label("Email")
                             ->email(),

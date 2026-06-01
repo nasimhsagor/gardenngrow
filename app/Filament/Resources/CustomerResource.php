@@ -43,6 +43,7 @@ class CustomerResource extends Resource
                     Forms\Components\TextInput::make("phone")
                         ->label("Phone Number")
                         ->tel()
+                        ->rule(new \App\Rules\BangladeshiPhone())
                         ->maxLength(20),
                     Forms\Components\Select::make("locale")
                         ->label("Preferred Language")

@@ -114,6 +114,8 @@ return [
     'new_address_below' => 'অথবা নিচে নতুন ঠিকানা লিখুন:',
     'full_name' => 'পুরো নাম',
     'phone' => 'ফোন',
+    'phone_number_invalid' => ':attribute-এ একটি সঠিক বাংলাদেশি নম্বর দিন (যেমন ০১৭XXXXXXXX, +৮৮০১৭XXXXXXXX)।',
+    'phone_number_hint' => 'সঠিক ফরম্যাট: 017XXXXXXXX, +88017XXXXXXXX অথবা 88017XXXXXXXX',
     'address_line_1' => 'ঠিকানা লাইন ১',
     'address_line_2' => 'ঠিকানা লাইন ২',
     'city' => 'শহর',
