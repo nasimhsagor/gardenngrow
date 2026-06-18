@@ -12,6 +12,7 @@ use App\Filament\Resources\CustomerResource;
 use App\Filament\Resources\OrderResource;
 use App\Filament\Resources\ProductResource;
 use App\Filament\Resources\ReviewResource;
+use App\Filament\Pages\AdminProfile;
 use App\Filament\Pages\Dashboard;
 use App\Filament\Widgets\AdminWelcome;
 use App\Filament\Widgets\LatestOrdersTable;
@@ -49,6 +50,10 @@ class AdminPanelProvider extends PanelProvider
             ->authGuard("admin")
             ->userMenuItems([
                 MenuItem::make()
+                    ->label("My Profile")
+                    ->icon("heroicon-o-user-circle")
+                    ->url("/admin/profile"),
+                MenuItem::make()
                     ->label("English")
                     ->icon("heroicon-o-language")
                     ->url("/language/en"),
@@ -75,7 +80,7 @@ class AdminPanelProvider extends PanelProvider
                 BlogResource::class,
                 BannerResource::class,
             ])
-            ->pages([Dashboard::class, \App\Filament\Pages\Settings::class])
+            ->pages([AdminProfile::class, Dashboard::class, \App\Filament\Pages\Settings::class])
             ->widgets([
                 AdminWelcome::class,
                 StatsOverview::class,
