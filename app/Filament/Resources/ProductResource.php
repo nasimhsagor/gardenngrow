@@ -72,7 +72,27 @@ class ProductResource extends Resource
                     Forms\Components\TextInput::make('slug')
                         ->label('Slug')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255),                        
+                    Forms\Components\Repeater::make('images')
+                        ->label('Product Images')
+                        ->relationship('images')
+                        ->schema([
+                            Forms\Components\FileUpload::make('path')
+                                ->label('Image')
+                                ->image()
+                                ->directory('products')
+                                ->maxSize(2048)
+                                ->imagePreviewHeight('100')
+                                ->required(),
+                            Forms\Components\TextInput::make('alt_text')
+                                ->label('Alt Text')
+                                ->maxLength(255),
+                            Forms\Components\Toggle::make('is_primary')
+                                ->label('Primary Image'),
+                        ])
+                        ->orderColumn('sort_order')
+                        ->collapsible()
+                        ->collapsed(false),
                     Forms\Components\Textarea::make('translations.en.short_description')
                         ->label('Short Description (EN)')
                         ->rows(2),
@@ -138,7 +158,7 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('primaryImage.path')->label('Image')->disk('public')->circular(false)->size(50),
+                Tables\Columns\ImageColumn::make('images.path')->label('Image')->disk('public')->circular(false)->size(50),
                 Tables\Columns\TextColumn::make('translations.name')->label('Name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('sku')->label('SKU')->searchable(),
                 Tables\Columns\TextColumn::make('price')->label('Price')->money('BDT')->sortable(),
